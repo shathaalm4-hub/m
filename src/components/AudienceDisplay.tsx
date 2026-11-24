@@ -106,7 +106,11 @@ export const AudienceDisplay: React.FC<AudienceDisplayProps> = ({ gameState }) =
         <div className="bg-[#34202B] rounded-[2.5rem] border-2 border-[#922D50] p-8 shadow-2xl shadow-[#922D50]/20 text-center space-y-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(146,45,80,0.2),transparent_70%)]"></div>
           <div className="relative z-10 space-y-3">
-            <span className="text-xs font-black px-4 py-1.5 rounded-full bg-[#922D50]/30 text-[#F5DDE2] border border-[#922D50]/50">
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-[#922D50] text-[#FFFFFF] font-black text-xs shadow-lg animate-pulse border border-[#D99AAA]/50">
+              <span>🎯 دور اللعب الحالي:</span>
+              <span className="text-[#D99AAA] font-black text-sm">{activeTeam.name}</span>
+            </div>
+            <span className="block text-xs font-black px-4 py-1.5 rounded-full bg-[#922D50]/30 text-[#F5DDE2] border border-[#922D50]/50 w-fit mx-auto">
               السؤال الرئيسي - الجولة {settings.currentRoundIndex + 1}
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-[#FFFFFF] leading-snug tracking-tight">
