@@ -29,6 +29,17 @@ export interface Team {
 
 export type GameMode = 'normal' | 'showdown' | 'speed' | 'high_scorer' | 'random';
 
+export interface ThemeConfig {
+  name: string;
+  bg: string;
+  cardBg: string;
+  primary: string;
+  accent: string;
+  text: string;
+  subText: string;
+  border: string;
+}
+
 export interface GameSettings {
   team1: Team;
   team2: Team;
@@ -39,6 +50,10 @@ export interface GameSettings {
   gameMode: GameMode;
   soundEnabled: boolean;
   selectedListIds: string[];
+  gameTitle: string; // Custom game title
+  autoSwitchTeam: boolean; // Automatic team switching after answer
+  themeId: string; // Selected theme preset ID
+  customTheme?: ThemeConfig; // Manual custom theme colors
 }
 
 export interface GameLog {

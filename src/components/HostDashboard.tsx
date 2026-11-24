@@ -99,6 +99,8 @@ export const HostDashboard: React.FC<HostDashboardProps> = ({ gameState, setGame
       const newTeam1Score = isTeam1 ? prev.settings.team1.score + points : prev.settings.team1.score;
       const newTeam2Score = !isTeam1 ? prev.settings.team2.score + points : prev.settings.team2.score;
       const newRevealed = [...prev.revealedAnswerIds, answer.id];
+      const shouldAutoSwitch = prev.settings.autoSwitchTeam ?? true;
+      const nextActiveTeamId = shouldAutoSwitch ? (prev.activeTeamId === 'team1' ? 'team2' : 'team1') : prev.activeTeamId;
 
       const logEntry = {
         id: Math.random().toString(),
@@ -112,6 +114,7 @@ export const HostDashboard: React.FC<HostDashboardProps> = ({ gameState, setGame
 
       return {
         ...prev,
+        activeTeamId: nextActiveTeamId,
         revealedAnswerIds: newRevealed,
         settings: {
           ...prev.settings,
@@ -132,6 +135,8 @@ export const HostDashboard: React.FC<HostDashboardProps> = ({ gameState, setGame
     setGameState(prev => {
       const newStrikes = prev.currentStrikes + 1;
       const activeTeam = prev.activeTeamId === 'team1' ? prev.settings.team1.name : prev.settings.team2.name;
+      const shouldAutoSwitch = prev.settings.autoSwitchTeam ?? true;
+      const nextActiveTeamId = shouldAutoSwitch ? (prev.activeTeamId === 'team1' ? 'team2' : 'team1') : prev.activeTeamId;
 
       const logEntry = {
         id: Math.random().toString(),
@@ -146,6 +151,7 @@ export const HostDashboard: React.FC<HostDashboardProps> = ({ gameState, setGame
 
       return {
         ...prev,
+        activeTeamId: nextActiveTeamId,
         currentStrikes: newStrikes,
         status: isRoundOver ? 'round_ended' : prev.status,
         logs: [logEntry, ...prev.logs]
