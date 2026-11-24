@@ -1,5 +1,6 @@
 import React from 'react';
 import { GameState } from '../types';
+import { THEME_PRESETS } from '../data/themes';
 import { Trophy, RotateCcw } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Logo } from './Logo';
@@ -13,6 +14,9 @@ interface ResultsScreenProps {
 export const ResultsScreen: React.FC<ResultsScreenProps> = ({ gameState, onResetToSetup }) => {
   const { team1, team2 } = gameState.settings;
   const winner = team1.score > team2.score ? team1 : team2.score > team1.score ? team2 : null;
+
+  const themeId = gameState.settings.themeId || 'playful_chic';
+  const currentTheme = THEME_PRESETS[themeId] || gameState.settings.customTheme || THEME_PRESETS['playful_chic'];
 
   React.useEffect(() => {
     confetti({
@@ -32,7 +36,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({ gameState, onReset
             <Trophy className="w-14 h-14 text-[#FFFFFF] font-black" />
           </div>
           
-          <Logo size="lg" />
+          <Logo size="lg" gameTitle={gameState.settings.gameTitle} theme={currentTheme} />
 
           <div className="space-y-2">
             <h2 className="text-3xl md:text-5xl font-black text-[#FFFFFF]">

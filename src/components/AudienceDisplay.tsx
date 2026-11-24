@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { GameState } from '../types';
+import { THEME_PRESETS } from '../data/themes';
 import { Trophy, ShieldAlert, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Logo } from './Logo';
@@ -17,6 +18,9 @@ export const AudienceDisplay: React.FC<AudienceDisplayProps> = ({ gameState }) =
   const activeTeamId = gameState.activeTeamId;
   const revealedIds = gameState.revealedAnswerIds;
 
+  const themeId = settings.themeId || 'playful_chic';
+  const currentTheme = THEME_PRESETS[themeId] || settings.customTheme || THEME_PRESETS['playful_chic'];
+
   useEffect(() => {
     if (gameState.status === 'game_over') {
       confetti({
@@ -33,7 +37,7 @@ export const AudienceDisplay: React.FC<AudienceDisplayProps> = ({ gameState }) =
         <div className="w-24 h-24 rounded-[2rem] bg-[#922D50]/20 border border-[#922D50]/40 flex items-center justify-center mb-6 shadow-2xl animate-pulse">
           <Trophy className="w-12 h-12 text-[#D99AAA]" />
         </div>
-        <Logo size="lg" />
+        <Logo size="lg" gameTitle={settings.gameTitle} theme={currentTheme} />
         <p className="text-[#F5DDE2]/70 text-lg mt-6">بانتظار بدء المقدم للمسابقة...</p>
       </div>
     );
@@ -56,7 +60,7 @@ export const AudienceDisplay: React.FC<AudienceDisplayProps> = ({ gameState }) =
 
       {/* Top TV Studio Header */}
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between border-b border-[#922D50]/30 pb-6 mb-6 relative z-10">
-        <Logo size="md" />
+        <Logo size="md" gameTitle={settings.gameTitle} theme={currentTheme} />
 
         {settings.roundDurationSeconds > 0 && (
           <div className="bg-[#34202B] backdrop-blur-xl border-2 border-[#922D50]/50 px-8 py-3 rounded-2xl shadow-2xl flex items-center gap-4">

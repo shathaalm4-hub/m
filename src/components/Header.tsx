@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tv, LayoutDashboard, Settings, ListPlus, Volume2, VolumeX } from 'lucide-react';
 import { GameState } from '../types';
+import { THEME_PRESETS } from '../data/themes';
 import { Logo } from './Logo';
 
 interface HeaderProps {
@@ -21,11 +22,14 @@ export const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView, gam
     }));
   };
 
+  const themeId = gameState.settings.themeId || 'playful_chic';
+  const currentTheme = THEME_PRESETS[themeId] || gameState.settings.customTheme || THEME_PRESETS['playful_chic'];
+
   return (
     <header className="bg-[#34202B]/90 backdrop-blur-2xl border-b border-[#922D50]/40 text-[#FFFFFF] sticky top-0 z-50 px-6 py-4 shadow-2xl">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
-        <Logo size="sm" onClick={() => setCurrentView('setup')} />
+        <Logo size="sm" onClick={() => setCurrentView('setup')} gameTitle={gameState.settings.gameTitle} theme={currentTheme} />
 
         {/* Navigation Tabs */}
         <div className="flex items-center gap-2 bg-[#34202B] p-1.5 rounded-2xl border border-[#922D50]/30 shadow-inner">

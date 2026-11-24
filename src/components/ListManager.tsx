@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { QuestionList } from '../types';
+import { QuestionList, GameState } from '../types';
+import { THEME_PRESETS } from '../data/themes';
 import { Sparkles, Download, Trash2 } from 'lucide-react';
 import { soundManager } from '../utils/sound';
 import { Logo } from './Logo';
@@ -8,15 +9,21 @@ interface ListManagerProps {
   lists: QuestionList[];
   setLists: React.Dispatch<React.SetStateAction<QuestionList[]>>;
   soundEnabled: boolean;
+  gameState?: GameState;
 }
 
-export const ListManager: React.FC<ListManagerProps> = ({ lists, setLists, soundEnabled }) => {
+export const ListManager: React.FC<ListManagerProps> = ({ lists, setLists, soundEnabled, gameState }) => {
   const [selectedList, setSelectedList] = useState<QuestionList | null>(lists[0] || null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
   const [aiCategory, setAiCategory] = useState('السعودية والخليج');
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+
+  const settings = gameState?.settings;
+  const themeId = settings?.themeId || 'playful_chic';
+  const currentTheme = THEME_PRESETS[themeId] || settings?.customTheme || THEME_PRESETS['playful_chic'];
+  const gameTitle = settings?.gameTitle;
 
   const handleAIGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +104,7 @@ export const ListManager: React.FC<ListManagerProps> = ({ lists, setLists, sound
             <Sparkles className="w-4 h-4 text-[#D99AAA]" />
             <span>مكتبة القوائم والذكاء الاصطناعي</span>
           </div>
-          <Logo size="md" />
+          <Logo size="md" gameTitle={gameTitle} theme={currentTheme} />
           <p className="text-[#F5DDE2]/80 text-sm max-w-xl">
             استعرض القوائم الحالية، أضف قوائم جديدة بضغطة زر باستخدام الذكاء الاصطناعي، أو قم بتصدير القوائم بكل سهولة.
           </p>

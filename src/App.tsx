@@ -246,6 +246,7 @@ export default function App() {
             lists={lists}
             setLists={setLists}
             soundEnabled={gameState.settings.soundEnabled}
+            gameState={gameState}
           />
         )}
 
