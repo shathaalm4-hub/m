@@ -1,0 +1,6 @@
+{
+  "name": "تحدي الـ100 مع شذى",
+  "description": "لعبة مسابقات تلفزيونية تفاعلية سعودية متكاملة مع لوحة مقدم مستقلة وشاشة عرض جماهيرية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
